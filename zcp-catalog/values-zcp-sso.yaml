@@ -1,0 +1,30 @@
+ingress:
+  enabled: true
+  annotations:
+    ingress.bluemix.net/rewrite-path: "serviceName=zcp-catalog-zcp-catalog-ui rewrite=/ui;serviceName=zcp-catalog-zcp-catalog-api rewrite=/"
+
+configmap:
+  targetUrl: "http://zcp-catalog-zcp-catalog-ui"
+  realm: zcp
+  resource: catalog
+  pattern: /*
+  rolesAllowed: admin
+
+tolerations:
+  - effect: NoSchedule
+    key: management
+    operator: Equal
+    value: "true"
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: beta.kubernetes.io/arch
+          operator: In
+          values:
+          - amd64
+        - key: role
+          operator: In
+          values:
+          - management
