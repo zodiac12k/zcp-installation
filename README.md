@@ -1,5 +1,11 @@
 # zcp-installation
 
+## Create tls secret
+
+```
+kubectl create secret tls cloudzcp-io-cert -n zcp-system  --cert cloudzcp.crt --key cloudzcp.key
+```
+
 ## Set environment variables
 
 Set environment variables.
