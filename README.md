@@ -3,6 +3,7 @@
 ## Create tls secret
 
 ```
+e.g)
 kubectl create secret tls cloudzcp-io-cert -n zcp-system  --cert cloudzcp.crt --key cloudzcp.key
 ```
 
