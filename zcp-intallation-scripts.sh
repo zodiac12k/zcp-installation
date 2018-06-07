@@ -30,13 +30,14 @@ then
   helm install --name zcp-registry \
     --namespace "$namespace" \
     -f zcp-registry/values.yaml \
-    --set externalDomain="registry.${domain}" \
+    --set externalDomain="${registry_sub_domain}.${domain}" \
     --set tlsCrt="$registry_crt" \
     --set tlsKey="$registry_key" \
     --set adminserver.adminPassword="${registry_admin_pwd}" \
     --set adminserver.emailPwd="${smtp_pwd}" \
     --set registry.objectStorage.s3.accesskey="${s3_accesskey}" \
     --set registry.objectStorage.s3.secretkey="${s3_secretkey}" \
+    --set registry.objectStorage.s3.bucket="${registry_s3_bucket}" \
     zcp/zcp-registry
 
   echo "End ZCP Registry installation."
@@ -57,9 +58,9 @@ then
   helm install --name zcp-sso-for-catalog \
     --namespace "$namespace" \
     -f zcp-catalog/values-zcp-sso.yaml \
-    --set ingress.hosts[0]="catalog.${domain}" \
+    --set ingress.hosts[0]="${catalog_sub_domain}.${domain}" \
     --set ingress.tls[0].secretName="${tls_secret}" \
-    --set ingress.tls[0].hosts[0]="catalog.${domain}" \
+    --set ingress.tls[0].hosts[0]="${catalog_sub_domain}.${domain}" \
     --set configmap.realmPublicKey="${realm_publicKey}" \
     --set configmap.authServerUrl="${auth_url}" \
     --set configmap.secret="${catalog_client_secret}" \

@@ -17,9 +17,12 @@ export s3_secretkey=
 
 //catalog
 export catalog_client_secret=
+export catalog_sub_domain=
 
 //registry
 export registry_admin_pwd=
+export registry_sub_domain=
+export registry_s3_bucket=
 
 e.g.)
 //common
@@ -34,9 +37,12 @@ export s3_secretkey=xxx
 
 //catalog
 export catalog_client_secret=xxx
+export catalog_sub_domain=registry-example
 
 //registry
 export registry_admin_pwd=xxx
+export registry_sub_domain=registry-example
+export registry_s3_bucket=zcp-registry-xxx
 ```
 
 Confirm the env.
@@ -54,9 +60,12 @@ echo $s3_secretkey
 
 //catalog
 echo $catalog_client_secret
+echo $catalog_sub_domain
 
 //registry
 echo $registry_admin_pwd
+echo $registry_sub_domain
+echo $registry_s3_bucket
 ```
 
 ## Run installation script
