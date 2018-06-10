@@ -19,6 +19,9 @@ export tls_secret=
 export realm_publicKey=
 export auth_url=
 export smtp_pwd=
+export s3_region=
+export s3_public_endpoint=
+export s3_private_endpoint=
 export s3_accesskey=
 export s3_secretkey=
 
@@ -39,6 +42,9 @@ export tls_secret=xxx
 export realm_publicKey="xxx"
 export auth_url=https://keycloak.cloudzcp.io/auth
 export smtp_pwd=xxx
+export s3_region=seo-ap-geo
+export s3_public_endpoint=s3.seo-ap-geo.objectstorage.softlayer.net
+export s3_private_endpoint=s3.seo-ap-geo.objectstorage.service.networklayer.com
 export s3_accesskey=xxx
 export s3_secretkey=xxx
 
@@ -62,6 +68,9 @@ echo $tls_secret
 echo $realm_publicKey
 echo $auth_url
 echo $smtp_pwd
+echo $s3_region
+echo $s3_public_endpoint
+echo $s3_private_endpoint
 echo $s3_accesskey
 echo $s3_secretkey
 
