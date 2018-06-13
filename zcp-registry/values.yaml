@@ -217,3 +217,42 @@ redis:
 
 notary:
   enabled: false
+
+backup:
+  enabled: true
+  serviceAccount: zcp-system-admin
+  serviceAccountSecretName: zcp-system-admin-token-mxqcn
+  timezone: Asia/Seoul
+  schedule: "*/1 16 * * *"
+  kubectl:
+    image:
+      repository: lachlanevenson/k8s-kubectl
+      tag: v1.9.7
+      pullPolicy: Always
+  s3:
+    image:
+      repository: mesosphere/aws-cli
+      tag: latest
+      pullPolicy: Always
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  tolerations:
+    - effect: NoSchedule
+      key: management
+      operator: Equal
+      value: "true"
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: beta.kubernetes.io/arch
+            operator: In
+            values:
+            - amd64
+          - key: role
+            operator: In
+            values:
+            - management

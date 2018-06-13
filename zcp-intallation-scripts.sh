@@ -40,6 +40,10 @@ then
     --set registry.objectStorage.s3.accesskey="${s3_accesskey}" \
     --set registry.objectStorage.s3.secretkey="${s3_secretkey}" \
     --set registry.objectStorage.s3.bucket="${registry_s3_bucket}" \
+    --set backup.objectStorage.s3.regionendpoint="${s3_private_endpoint}" \
+    --set backup.objectStorage.s3.accesskey="${s3_accesskey}" \
+    --set backup.objectStorage.s3.secretkey="${s3_secretkey}" \
+    --set backup.objectStorage.s3.bucket="${backup_s3_bucket}" \
     zcp/zcp-registry
 
   echo "End ZCP Registry installation."

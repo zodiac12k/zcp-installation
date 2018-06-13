@@ -24,6 +24,7 @@ export s3_public_endpoint=
 export s3_private_endpoint=
 export s3_accesskey=
 export s3_secretkey=
+export backup_s3_bucket=
 
 //catalog
 export catalog_client_secret=
@@ -47,6 +48,7 @@ export s3_public_endpoint=s3.seo-ap-geo.objectstorage.softlayer.net
 export s3_private_endpoint=s3.seo-ap-geo.objectstorage.service.networklayer.com
 export s3_accesskey=xxx
 export s3_secretkey=xxx
+export backup_s3_bucket=zcp-backup-dev
 
 //catalog
 export catalog_client_secret=xxx
@@ -73,6 +75,7 @@ echo $s3_public_endpoint
 echo $s3_private_endpoint
 echo $s3_accesskey
 echo $s3_secretkey
+echo $backup_s3_bucket
 
 //catalog
 echo $catalog_client_secret
