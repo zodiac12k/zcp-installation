@@ -113,3 +113,15 @@ Run upgrade script and insert a number you want to upgrade.
 3. Catalog
 Insert a number:
 ```
+
+## Run rollback script
+
+Run rollback script and insert a number you want to rollback.
+
+```
+./zcp-rollback-scripts.sh
+1. All
+2. Registry
+3. Catalog
+Insert a number:
+```

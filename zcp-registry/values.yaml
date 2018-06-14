@@ -221,7 +221,7 @@ notary:
 backup:
   enabled: true
   timezone: Asia/Seoul
-  schedule: "*/1 16 * * *"
+  schedule: "*/11 16 * * *"
   kubectl:
     image:
       repository: lachlanevenson/k8s-kubectl

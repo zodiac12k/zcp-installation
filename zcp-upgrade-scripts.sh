@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "Please select number you want upgrade."
+echo -e "Please select number you want to upgrade."
 echo "1. All"
 echo "2. Registry"
 echo "3. Catalog"

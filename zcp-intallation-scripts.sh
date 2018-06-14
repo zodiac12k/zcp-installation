@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "Please select number you want install."
+echo -e "Please select number you want to install."
 echo "1. All"
 echo "2. Registry"
 echo "3. Catalog"
@@ -31,7 +31,7 @@ then
   --namespace "$namespace" \
   -o jsonpath="{.secrets[0].name}")
 
-  helm install --name zcp-registry \
+  helm install --name zcp-registry zcp/zcp-registry \
     --namespace "$namespace" \
     -f zcp-registry/values.yaml \
     --set externalDomain="${registry_sub_domain}.${domain}" \
@@ -49,8 +49,7 @@ then
     --set backup.objectStorage.s3.regionendpoint="${s3_private_endpoint}" \
     --set backup.objectStorage.s3.accesskey="${s3_accesskey}" \
     --set backup.objectStorage.s3.secretkey="${s3_secretkey}" \
-    --set backup.objectStorage.s3.bucket="${backup_s3_bucket}" \
-    zcp/zcp-registry
+    --set backup.objectStorage.s3.bucket="${backup_s3_bucket}"
 
   echo "End ZCP Registry installation."
 fi
@@ -62,12 +61,11 @@ then
   kubectl create -f zcp-catalog/zcp-catalog-mongodb-pvc.yaml \
   --namespace "$namespace"
 
-  helm install --name zcp-catalog \
+  helm install --name zcp-catalog zcp/zcp-catalog \
     --namespace "$namespace" \
-    -f zcp-catalog/values-zcp-catalog.yaml \
-    zcp/zcp-catalog
+    -f zcp-catalog/values-zcp-catalog.yaml
 
-  helm install --name zcp-sso-for-catalog \
+  helm install --name zcp-sso-for-catalog zcp/zcp-sso \
     --namespace "$namespace" \
     -f zcp-catalog/values-zcp-sso.yaml \
     --set ingress.hosts[0]="${catalog_sub_domain}.${domain}" \
@@ -75,8 +73,8 @@ then
     --set ingress.tls[0].hosts[0]="${catalog_sub_domain}.${domain}" \
     --set configmap.realmPublicKey="${realm_publicKey}" \
     --set configmap.authServerUrl="${auth_url}" \
-    --set configmap.secret="${catalog_client_secret}" \
-    zcp/zcp-sso
+    --set configmap.secret="${catalog_client_secret}"
+
 
   echo "End ZCP Catalog installation."
 fi
