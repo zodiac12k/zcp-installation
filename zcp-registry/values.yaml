@@ -220,8 +220,6 @@ notary:
 
 backup:
   enabled: true
-  serviceAccount: zcp-system-admin
-  serviceAccountSecretName: zcp-system-admin-token-mxqcn
   timezone: Asia/Seoul
   schedule: "*/1 16 * * *"
   kubectl:

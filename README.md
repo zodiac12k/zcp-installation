@@ -25,6 +25,7 @@ export s3_private_endpoint=
 export s3_accesskey=
 export s3_secretkey=
 export backup_s3_bucket=
+export zcp_admin_service_account=
 
 //catalog
 export catalog_client_secret=
@@ -49,6 +50,7 @@ export s3_private_endpoint=s3.seo-ap-geo.objectstorage.service.networklayer.com
 export s3_accesskey=xxx
 export s3_secretkey=xxx
 export backup_s3_bucket=zcp-backup-dev
+export zcp_admin_service_account=zcp-system-admin
 
 //catalog
 export catalog_client_secret=xxx
@@ -76,6 +78,7 @@ echo $s3_private_endpoint
 echo $s3_accesskey
 echo $s3_secretkey
 echo $backup_s3_bucket
+echo $zcp_admin_service_account
 
 //catalog
 echo $catalog_client_secret
@@ -93,6 +96,18 @@ Run installation script and insert a number you want to install.
 
 ```
 ./zcp-installation-scripts.sh
+1. All
+2. Registry
+3. Catalog
+Insert a number:
+```
+
+## Run upgrade script
+
+Run upgrade script and insert a number you want to upgrade.
+
+```
+./zcp-upgrade-scripts.sh
 1. All
 2. Registry
 3. Catalog

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "Please select number you want install."
+echo -e "Please select number you want upgrade."
 echo "1. All"
 echo "2. Registry"
 echo "3. Catalog"
@@ -10,14 +10,7 @@ read number
 
 if [ $number == 2  -o  $number == 1 ]
 then
-  echo "Start ZCP Registry installation..."
-
-  kubectl create -f zcp-registry/adminserver-pvc.yaml \
-  --namespace "$namespace"
-  kubectl create -f zcp-registry/mysql-pvc.yaml \
-  --namespace "$namespace"
-  kubectl create -f zcp-registry/psql-pvc.yaml \
-  --namespace "$namespace"
+  echo "Start ZCP Registry upgrade..."
 
   registry_crt=$(kubectl get secret "$tls_secret" \
   --namespace "$namespace" \
@@ -31,8 +24,9 @@ then
   --namespace "$namespace" \
   -o jsonpath="{.secrets[0].name}")
 
-  helm install --name zcp-registry \
+  helm upgrade zcp-registry zcp/zcp-registry \
     --namespace "$namespace" \
+    --reuse-values \
     -f zcp-registry/values.yaml \
     --set externalDomain="${registry_sub_domain}.${domain}" \
     --set tlsCrt="$registry_crt" \
@@ -49,34 +43,15 @@ then
     --set backup.objectStorage.s3.regionendpoint="${s3_private_endpoint}" \
     --set backup.objectStorage.s3.accesskey="${s3_accesskey}" \
     --set backup.objectStorage.s3.secretkey="${s3_secretkey}" \
-    --set backup.objectStorage.s3.bucket="${backup_s3_bucket}" \
-    zcp/zcp-registry
+    --set backup.objectStorage.s3.bucket="${backup_s3_bucket}"
 
-  echo "End ZCP Registry installation."
+  echo "End ZCP Registry upgrade."
 fi
 
 if [ $number == 3  -o  $number == 1 ]
 then
-  echo "Start ZCP Catalog installation..."
+  echo "Start ZCP Catalog upgrade..."
 
-  kubectl create -f zcp-catalog/zcp-catalog-mongodb-pvc.yaml \
-  --namespace "$namespace"
 
-  helm install --name zcp-catalog \
-    --namespace "$namespace" \
-    -f zcp-catalog/values-zcp-catalog.yaml \
-    zcp/zcp-catalog
-
-  helm install --name zcp-sso-for-catalog \
-    --namespace "$namespace" \
-    -f zcp-catalog/values-zcp-sso.yaml \
-    --set ingress.hosts[0]="${catalog_sub_domain}.${domain}" \
-    --set ingress.tls[0].secretName="${tls_secret}" \
-    --set ingress.tls[0].hosts[0]="${catalog_sub_domain}.${domain}" \
-    --set configmap.realmPublicKey="${realm_publicKey}" \
-    --set configmap.authServerUrl="${auth_url}" \
-    --set configmap.secret="${catalog_client_secret}" \
-    zcp/zcp-sso
-
-  echo "End ZCP Catalog installation."
+  echo "End ZCP Catalog upgrade."
 fi
