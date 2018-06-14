@@ -228,12 +228,12 @@ backup:
     image:
       repository: lachlanevenson/k8s-kubectl
       tag: v1.9.7
-      pullPolicy: Always
+      pullPolicy: IfNotPresent
   s3:
     image:
       repository: mesosphere/aws-cli
-      tag: latest
-      pullPolicy: Always
+      tag: 1.14.5
+      pullPolicy: IfNotPresent
   resources:
     requests:
       cpu: 100m
