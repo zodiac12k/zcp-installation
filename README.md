@@ -18,6 +18,10 @@ export domain=
 export tls_secret=
 export realm_publicKey=
 export auth_url=
+export smtp_host=
+export smtp_port=
+export smtp_user=
+export smtp_from=
 export smtp_pwd=
 export s3_region=
 export s3_public_endpoint=
@@ -43,6 +47,10 @@ export domain=cloudzcp.io
 export tls_secret=xxx
 export realm_publicKey="xxx"
 export auth_url=https://keycloak.cloudzcp.io/auth
+export smtp_host=smtp.sendgrid.net
+export smtp_port=465
+export smtp_user=admin@example.com
+export smtp_from='admin <admin@example.com>'
 export smtp_pwd=xxx
 export s3_region=seo-ap-geo
 export s3_public_endpoint=s3.seo-ap-geo.objectstorage.softlayer.net
@@ -71,6 +79,10 @@ echo $domain
 echo $tls_secret
 echo $realm_publicKey
 echo $auth_url
+echo $smtp_host
+echo $smtp_port
+echo $smtp_user
+echo $smtp_from
 echo $smtp_pwd
 echo $s3_region
 echo $s3_public_endpoint

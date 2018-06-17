@@ -9,11 +9,6 @@ ingress:
     ingress.bluemix.net/client-max-body-size: size=900m
 
 adminserver:
-  emailHost: "smtp.sendgrid.net:465"
-  emailPort: "465"
-  emailUser: "apikey"
-  emailSsl: "false"
-  emailFrom: "admin <cnpst.adm@gmail.com>"
   emailIdentity: ""
   emailInsecure: "False"
   resources:

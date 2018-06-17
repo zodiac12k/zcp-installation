@@ -32,6 +32,10 @@ then
     --set tlsCrt="$registry_crt" \
     --set tlsKey="$registry_key" \
     --set adminserver.adminPassword="${registry_admin_pwd}" \
+    --set adminserver.emailHost="${smtp_host}" \
+    --set adminserver.emailPort="${smtp_port}" \
+    --set adminserver.emailUser="${smtp_user}" \
+    --set adminserver.emailFrom="${smtp_from}" \
     --set adminserver.emailPwd="${smtp_pwd}" \
     --set registry.objectStorage.s3.region="${s3_region}" \
     --set registry.objectStorage.s3.regionendpoint="${s3_public_endpoint}" \
