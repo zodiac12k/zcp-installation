@@ -9,8 +9,7 @@ ingress:
     ingress.bluemix.net/client-max-body-size: size=900m
 
 adminserver:
-  emailIdentity: ""
-  emailInsecure: "False"
+  emailSsl: "true"
   selfRegistration: "off"
   resources:
     requests:
