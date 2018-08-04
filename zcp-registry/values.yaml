@@ -11,6 +11,7 @@ ingress:
 adminserver:
   emailIdentity: ""
   emailInsecure: "False"
+  selfRegistration: "off"
   resources:
     requests:
       memory: 256Mi
