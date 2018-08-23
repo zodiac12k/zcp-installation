@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   annotations:
-    volume.beta.kubernetes.io/storage-class: ibmc-file-bronze
+    volume.beta.kubernetes.io/storage-class: ibmc-file-retain-silver
   labels:
     billingType: "hourly"
     app: zcp-registry
@@ -15,4 +15,3 @@ spec:
   resources:
     requests:
       storage: 20Gi
-  storageClassName: ibmc-file-bronze
