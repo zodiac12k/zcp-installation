@@ -11,7 +11,7 @@ api:
     repos:
     - name: zcp
       #url: http://zcp-git-gitea/gitadmin/charts/raw/branch/master/docs       # internal
-      url: https://raw.githubusercontent.com/cnpst/charts/master/docs        # external
+      url: https://cnpst.github.io/charts       # external
     releasesEnabled: true
     cacheRefreshInterval: 60
   tolerations:
