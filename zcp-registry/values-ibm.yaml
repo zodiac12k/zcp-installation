@@ -1,3 +1,29 @@
+## for DRY
+common:
+  resources: &100m-256Mi
+    requests:
+      memory: 256Mi
+      cpu: 100m
+  tolerations: &tolerations
+  - effect: NoSchedule
+    key: management
+    operator: Equal
+    value: "true"
+  affinity: &affinity
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: beta.kubernetes.io/arch
+            operator: In
+            values:
+            - amd64
+          - key: role
+            operator: In
+            values:
+            - management
+
+
 #harborImageTag: &harbor_image_tag v1.5.0-chart-patch
 externalDomain: service.site.com   # CHANGE
 
@@ -15,24 +41,28 @@ adminserver:
   image:
     repository: registry.au-syd.bluemix.net/cloudzcp/harbor-adminserver
   #adminPassword: xxxx # CHANGE
+  resources: *100m-256Mi
   tolerations: *tolerations
   affinity: *affinity
 
 jobservice:
   image:
     repository: registry.au-syd.bluemix.net/cloudzcp/harbor-jobservice
+  resources: *100m-256Mi
   tolerations: *tolerations
   affinity: *affinity
 
 ui:
   image:
     repository: registry.au-syd.bluemix.net/cloudzcp/harbor-ui
+  resources: *100m-256Mi
   tolerations: *tolerations
   affinity: *affinity
 
 mysql:
   image:
     repository: registry.au-syd.bluemix.net/cloudzcp/harbor-db
+  resources: *100m-256Mi
   tolerations: *tolerations
   affinity: *affinity
 
@@ -51,6 +81,7 @@ registry:
     data:
       size: 20Gi
       storageClass: "ibmc-block-retain-silver"
+  resources: *100m-256Mi
   tolerations: *tolerations
   affinity: *affinity
 
@@ -58,6 +89,10 @@ clair:
   enabled: true
   image:
     repository: registry.au-syd.bluemix.net/cloudzcp/clair-photon
+  resources: *100m-256Mi
+  pgResources: *100m-256Mi
+  volumes:
+    resources: *100m-256Mi
   tolerations: *tolerations
   affinity: *affinity
 
@@ -105,27 +140,9 @@ backup:
   #    bucket: 
   #    encrypt: "true"
   #    regionendpoint: s3.seo-ap-geo.objectstorage.softlayer.net
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
   tolerations: *tolerations
   affinity: *affinity
-
-
-## for DRY
-common:
-  tolerations: &tolerations
-  - effect: NoSchedule
-    key: management
-    operator: Equal
-    value: "true"
-  affinity: &affinity
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: beta.kubernetes.io/arch
-            operator: In
-            values:
-            - amd64
-          - key: role
-            operator: In
-            values:
-            - management
