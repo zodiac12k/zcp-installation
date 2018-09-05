@@ -29,10 +29,14 @@ env:
 
 jenkins:
   schedule: 5 */6 * * *  # CHANGE
+  ...
+  #serviceAccount:  # CHANGE
 ...
 
 gitea:
   schedule: 5 */6 * * *  # CHANGE
+  ...
+  #serviceAccount:  # CHANGE
 ```
 
 ### 2. zcp-tools-backup 설치
