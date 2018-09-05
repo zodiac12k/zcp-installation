@@ -15,11 +15,13 @@ jenkins:
   schedule: 5 */6 * * *  # CHANGE
   #successfulJobsHistoryLimit:
   #failedJobsHistoryLimit:
+  #serviceAccount:   # CHANGE
 
 gitea:
   schedule: 5 */6 * * *  # CHANGE
   #successfulJobsHistoryLimit:
   #failedJobsHistoryLimit:
+  #serviceAccount:   # CHANGE
 
 resources:
   requests:
