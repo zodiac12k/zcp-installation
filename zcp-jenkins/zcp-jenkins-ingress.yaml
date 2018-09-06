@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    # ingress.bluemix.net/ALB-ID: private-cr9b51e2d31cef4589984913b350fa8ed8-alb1
+    ingress.bluemix.net/redirect-to-https: "True"
+  name: zcp-jenkins-ingress
+  namespace: zcp-system
+spec:
+  rules:
+  - host: jenkins.cloudzcp.io
+    http:
+      paths:
+      - backend:
+          serviceName: zcp-jenkins
+          servicePort: 8080
+  tls:
+  - hosts:
+    - jenkins.cloudzcp.io
+    secretName: cloudzcp-io-cert
