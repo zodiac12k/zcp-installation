@@ -1,0 +1,43 @@
+## Override the name of the Chart.
+##
+# nameOverride:
+
+## Kubernetes configuration
+## For minikube, set this to NodePort, elsewhere use LoadBalancer
+##
+serviceType: ClusterIP
+service:
+  ingress:
+    enabled: true
+    annotations:
+      ingress.bluemix.net/redirect-to-https: "True"
+    hosts:
+      host: git.cloudzcp.io  #CHANGE
+    tls:
+    - hosts:
+      - git.cloudzcp.io  # CHANGE
+      secretName: cloudzcp-io-cert
+
+## Persistent Volume Storage configuration.
+## ref: https://kubernetes.io/docs/user-guide/persistent-volumes
+##
+persistence:
+  ## Enable persistence using Persistent Volume Claims.
+  ##
+  enabled: true
+
+  existingClaim: zcp-gitea
+
+## Configuration values for the postgresql dependency.
+## ref: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
+##
+postgresql:
+
+  ## Persistent Volume Storage configuration.
+  ## ref: https://kubernetes.io/docs/user-guide/persistent-volumes
+  ##
+  persistence:
+    ## Enable PostgreSQL persistence using Persistent Volume Claims.
+    ##
+    enabled: true
+    existingClaim: zcp-gitea-postgres 
