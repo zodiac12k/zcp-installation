@@ -37,7 +37,7 @@ $ kubectl apply -f zcp-git-pvc.yaml
 ### 1. values.yaml 정보 변경
 private 환경인 경우 values-ibm.yaml 을 수정한다.
 `# CAHNGE` 주석이 포함된 라인의 정보를 수정한다.
-
+```
 service:
   ingress:
     annotations:
