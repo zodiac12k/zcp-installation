@@ -38,6 +38,7 @@ Master:
     - keycloak:2.2.0
     - blueocean:1.8.2
     - matrix-auth:2.3
+    - durable-task:1.25
   Tolerations:
   - key: "management"
     operator: "Equal"
