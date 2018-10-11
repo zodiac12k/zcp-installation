@@ -20,7 +20,7 @@ configmap:
   realm: zcp
   resource: catalog
   pattern: /*
-  rolesAllowed: admin
+  rolesAllowed: catalog-manager  #admin
 
   authServerUrl: https://gdi-dev-iam.cloudzcp.io/auth  # CHANGE
   secret: 8d7c396d-123e-4c59-8397-f6fe31e34680         # CHANGE: client secret
