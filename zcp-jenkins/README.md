@@ -26,9 +26,14 @@ configuration 파일 디렉토리로 이동한다.
 $ cd zcp-installation/zcp-jenkins
 ```
 
-pvc를 설치한다.
+Jenkins home pvc를 설치한다.
 ```
 $ kubectl apply -f zcp-jenkins-pvc.yaml
+```
+
+Maven local repository pvc를 설치한다.
+```
+$ kubectl apply -f zcp-jenkins-maven-pvc.yaml
 ```
 
 ## Deploy the application

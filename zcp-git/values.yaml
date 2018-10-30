@@ -17,7 +17,25 @@ service:
     - hosts:
       - git.cloudzcp.io  # CHANGE
       secretName: cloudzcp-io-cert
-
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: beta.kubernetes.io/arch
+          operator: In
+          values:
+          - "amd64"
+        - key: role
+          operator: In
+          values:
+          - "management"
+tolerations:
+- key: "management"
+  operator: "Equal"
+  value: "true"
+  effect: "NoSchedule"
+      
 ## Persistent Volume Storage configuration.
 ## ref: https://kubernetes.io/docs/user-guide/persistent-volumes
 ##
@@ -41,3 +59,21 @@ postgresql:
     ##
     enabled: true
     existingClaim: zcp-gitea-postgres 
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: beta.kubernetes.io/arch
+            operator: In
+            values:
+            - "amd64"
+          - key: role
+            operator: In
+            values:
+            - "management"
+  tolerations:
+  - key: "management"
+    operator: "Equal"
+    value: "true"
+    effect: "NoSchedule"
