@@ -73,3 +73,31 @@ private 환경인 경우
 ```
 $ helm install jenkins-0.14.3.tgz -n zcp-jenkins -f values-ibm.yaml --namespace=zcp-system 
 ```
+
+### 3. Jenkins Plugins 복사
+검증이 완료 된 버전의 Jenkins plugin 을 사용하기 위해 values 파일의 InstallPlugins 를 사용하지 않고 Plugin 을 직접 Jenkins pod 에 복사한다.
+
+Jenkins pod 에 완전히 기동되었는지 확인한다. Running 상태여야 파일 복사가 가능하다.
+```
+$ kubectl get po -l app=zcp-jenkins -n zcp-system
+NAME                           READY     STATUS    RESTARTS   AGE
+zcp-jenkins-86c545fc87-n84vl   1/1       Running   0          1d
+```
+
+git 에서 plugin 파일을 받는다. 용량이 커서 별도의 repository 로 관리하고 있다.
+```
+$ cd ../..
+$ git clone https://github.com/cnpst/zcp-jenkins-plugins.git
+```
+
+plugin을 jenkins pod 으로 복사한다.
+```
+$ cd zcp-jenkins-plugins
+$ kubectl cp plugins  `(kubectl get po -l app=zcp-jenkins -o jsonpath='{.items[0].metadata.name} -n zcp-system')`:var/jenkins_home/plugins -n zcp-system
+```
+
+Jenkins 를 재기동한다.
+```
+$ kubectl scale deploy zcp-jenkins --replicas=0 -n zcp-system
+$ kubectl scale deploy zcp-jenkins --replicas=1 -n zcp-system
+```
