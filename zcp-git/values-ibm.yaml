@@ -16,6 +16,7 @@ service:
     annotations:
       # ingress.bluemix.net/ALB-ID: private-cr9b51e2d31cef4589984913b350fa8ed8-alb1  # CHANGE
       ingress.bluemix.net/redirect-to-https: "True"
+      ingress.bluemix.net/client-max-body-size: size=50M
     hosts:
       host: git.cloudzcp.io  #CHANGE
     tls:

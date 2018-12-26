@@ -11,6 +11,7 @@ service:
     enabled: true
     annotations:
       ingress.bluemix.net/redirect-to-https: "True"
+      ingress.bluemix.net/client-max-body-size: size=50M
     hosts:
       host: git.cloudzcp.io  #CHANGE
     tls:
