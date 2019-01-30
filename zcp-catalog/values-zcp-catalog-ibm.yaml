@@ -65,6 +65,8 @@ ui:
 
 prerender:
   replicaCount: 1
+  image:
+    repository: registry.au-syd.bluemix.net/cloudzcp/prerender
   tolerations:
     - effect: NoSchedule
       key: management
