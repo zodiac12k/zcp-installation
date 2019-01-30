@@ -93,7 +93,7 @@ $ git clone https://github.com/cnpst/zcp-jenkins-plugins.git
 plugin을 jenkins pod 으로 복사한다.
 ```
 $ cd zcp-jenkins-plugins
-$ kubectl cp plugins  `(kubectl get po -l app=zcp-jenkins -o jsonpath='{.items[0].metadata.name}' -n zcp-system)`:var/jenkins_home/plugins -n zcp-system
+$ kubectl cp plugins  `(kubectl get po -l app=zcp-jenkins -o jsonpath='{.items[0].metadata.name}' -n zcp-system)`:var/jenkins_home -n zcp-system
 ```
 
 Jenkins 를 재기동한다.
