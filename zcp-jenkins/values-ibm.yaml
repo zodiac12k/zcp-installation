@@ -18,15 +18,17 @@ Master:
   UseSecurity: true
   AdminUser: admin
   AdminPassword: jenkins
-  Cpu: "200m"
-  Memory: "2048Mi"
-
+  Requests:
+    Cpu: "200m"
+    Memory: "512m"
+  Limits:
+    Cpu: "1"
+    Memory: "2Gi"
   HostName: jenkins.cloudzcp.io	# CHANGE
-  
   # For minikube, set this to NodePort, elsewhere use LoadBalancer
   # Use ClusterIP if your setup includes ingress controller
   ServiceType: ClusterIP
-  JavaOpts: -Duser.timezone=Asia/Seoul
+  JavaOpts: -Duser.timezone=Asia/Seoul -Xms512m -Xmx1024m
   InstallPlugins:
 
   Tolerations:

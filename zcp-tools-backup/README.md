@@ -22,21 +22,22 @@ $ cd zcp-installation/zcp-tools-backup
 ...
 # CHANGE
 env:
-  #AWS_ACCESS_KEY_ID: 
-  #AWS_SECRET_ACCESS_KEY: 
-  #S3_ENDPOINT: https://xxxx.objectstorage.softlayer.net
-  #S3_BUCKET: zcp-backup
+  #AWS_ACCESS_KEY_ID: ***            # CHANGE
+  #AWS_SECRET_ACCESS_KEY: ***        # CHANGE
+  #S3_ENDPOINT: https://s3.***-ap-geo.objectstorage.softlayer.net  # CHANGE
+  #S3_BUCKET: zcp-backup-***         # CHANGE
+  GITEA_DEPLOY: zcp-git-gitea        # CHANGE
 
 jenkins:
-  schedule: 5 */6 * * *  # CHANGE
+  schedule: 0 15 * * *  # CHANGEE
   ...
-  #serviceAccount:  # CHANGE
+  serviceAccount:  # CHANGE
 ...
 
 gitea:
-  schedule: 5 */6 * * *  # CHANGE
+  schedule: 0 15 * * *  # CHANGE
   ...
-  #serviceAccount:  # CHANGE
+  serviceAccount:  # CHANGE
 ```
 
 ### 2. zcp-tools-backup 설치

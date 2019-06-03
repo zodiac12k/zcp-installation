@@ -1,5 +1,13 @@
 # The zcp-git Installation Guide
 
+## ZCP-git Component 
+
+| Component        | Version           | Image  | etc |
+| ------------- |-------------|-----|----|
+|Gitea| 1.4 |gitea/gitea:1.4
+|Postgres| 9.6.2 |postgres:9.6.2
+
+
 zcp-git 는 Open Source Gitea 를 사용한다.
 
 zcp-gitea 설치 전에 필요한 것들.
