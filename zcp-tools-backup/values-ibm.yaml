@@ -13,16 +13,16 @@ env:
   GITEA_DEPLOY: zcp-git-gitea        # CHANGE
 
 jenkins:
-  schedule: 0 15 * * *  # CHANGE
+  schedule: 5 15 * * *  # CHANGE
   #successfulJobsHistoryLimit:
   #failedJobsHistoryLimit:
-  #serviceAccount:      # CHANGE
+  serviceAccount: zcp-system-admin     # CHANGE
 
 gitea:
   schedule: 0 15 * * *  # CHANGE
   #successfulJobsHistoryLimit:
   #failedJobsHistoryLimit:
-  #serviceAccount:      # CHANGE
+  serviceAccount: zcp-system-admin     # CHANGE
 
 resources:
   requests:
