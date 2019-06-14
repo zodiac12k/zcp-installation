@@ -21,12 +21,12 @@ $ cd zcp-installation/zcp-registry
 ### 1. values-ibm.yaml 정보 변경
 `# CAHNGE` 주석이 포함된 라인의 정보를 수정한다.
 ```
-externalDomain: service.site.com   # CHANGE
+externalDomain: ***-registry.cloudzcp.io   # CHANGE
 ...
 
 ingress:
   annotations:
-    #ingress.bluemix.net/ALB-ID: private-xxxx-alb1  # CHANGE: Private ALB
+    #ingress.bluemix.net/ALB-ID: private-xxxx-alb1  # CHANGE: IF use Private ALB
 ...
 
 adminserver:
@@ -41,24 +41,25 @@ registry:
   #objectStorage:  # CHANGE
   #  s3:
   #    region: seo-ap-geo
-  #    accesskey: 
-  #    secretkey: 
-  #    bucket: 
+  #    accesskey: ***
+  #    secretkey: ***
+  #    bucket: zcp-registry-***
   #    encrypt: "true"
-  #    regionendpoint: s3.seo-ap-geo.objectstorage.softlayer.net
+  #    regionendpoint: s3.seo.ap.cloud-object-storage.appdomain.cloud
 ...
 
 backup:
   enabled: true
 ...
   #objectStorage:  # CHANGE
-  #  s3: 
+  #objectStorage:  # CHANGE
+  #  s3:
   #    region: seo-ap-geo
-  #    accesskey: 
-  #    secretkey: 
-  #    bucket: 
+  #    accesskey: ***
+  #    secretkey: ***
+  #    bucket: zcp-backup-***
   #    encrypt: "true"
-  #    regionendpoint: s3.seo-ap-geo.objectstorage.softlayer.net
+  #    regionendpoint: s3.seo.ap.cloud-object-storage.appdomain.cloud
 ```
 
 ### 2. install.sh 의 변수를 수정한다.
