@@ -32,7 +32,7 @@ ingress:
 adminserver:
   image:
     repository: registry.au-syd.bluemix.net/cloudzcp/harbor-adminserver
-  #adminPassword: xxxx # CHANGE
+  #adminPassword: xxxx  #CHANGE
 ...
 
 registry:
@@ -41,25 +41,24 @@ registry:
   #objectStorage:  # CHANGE
   #  s3:
   #    region: seo-ap-geo
-  #    accesskey: ***
-  #    secretkey: ***
-  #    bucket: zcp-registry-***
+  #    accesskey: ***   # CHANGE
+  #    secretkey: ***   # CHANGE
+  #    bucket: zcp-registry-***   # CHANGE
   #    encrypt: "true"
-  #    regionendpoint: s3.seo.ap.cloud-object-storage.appdomain.cloud
+  #    regionendpoint: s3.seo.ap.cloud-object-storage.appdomain.cloud   # CHANGE
 ...
 
 backup:
   enabled: true
 ...
-  #objectStorage:  # CHANGE
-  #objectStorage:  # CHANGE
-  #  s3:
-  #    region: seo-ap-geo
-  #    accesskey: ***
-  #    secretkey: ***
-  #    bucket: zcp-backup-***
-  #    encrypt: "true"
-  #    regionendpoint: s3.seo.ap.cloud-object-storage.appdomain.cloud
+  objectStorage:   # CHANGE
+    s3:
+      region: seo-ap-geo
+      accesskey: ***   # CHANGE
+      secretkey: ***   # CHANGE
+      bucket: zcp-backup-***   # CHANGE
+      encrypt: "true"
+      regionendpoint: s3.seo.ap.cloud-object-storage.appdomain.cloud   # CHANGE
 ```
 
 ### 2. install.sh 의 변수를 수정한다.
