@@ -22,7 +22,7 @@ $ cd zcp-installation/zcp-catalog
 아래의 helm install을 실행하고, 정상적으로 배포되었는지 확인한다. 
 ```
 $ helm repo add zcp https://raw.githubusercontent.com/cnpst/charts/master/docs
-$ helm install zcp/zcp-catalog -n zcp-catalog -f values-zcp-catalog-ibm.yaml
+$ helm install zcp/zcp-catalog -n zcp-catalog -f values-zcp-catalog-ibm.yaml --namespace zcp-system
 $ kubectl get pod -n zcp-system
 ```
 
@@ -61,7 +61,7 @@ configmap:
 #### 2-2. zcp-sso 설치
 아래의 helm install을 실행하고, 정상적으로 배포되었는지 확인한다.
 ```
-$ helm install zcp/zcp-sso -n zcp-sso-catalog -f values-zcp-sso.yaml
+$ helm install zcp/zcp-sso -n zcp-sso-catalog -f values-zcp-sso.yaml --namespace zcp-system
 $ kubectl get pod -n zcp-system
 ```
 
