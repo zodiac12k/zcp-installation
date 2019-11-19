@@ -67,5 +67,5 @@ KEYCLOAK_DB_PWD=***
 ### Helm install 수행
 
 ```
-$ ./install_iks.sh
+$ ./install_eks.sh
 ```
