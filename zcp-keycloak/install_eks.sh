@@ -8,7 +8,7 @@ kubectl create secret generic realm-secret -n ${TARGET_NAMESPACE} --from-file=re
 helm install stable/keycloak --version 2.0.0 \
 --name zcp-oidc \
 -f values-eks.yaml \
---namespace ${TARGET„_NAMESPACE} \
+--namespace ${TARGET_NAMESPACE} \
 --set keycloak.username=${KEYCLOAK_ADMIN_ID} \
 --set keycloak.password=${KEYCLOAK_ADMIN_PWD} \
 --set keycloak.ingress.hosts[0]=${KEYCLOAK_INGRESS_HOSTS} \
