@@ -1,0 +1,107 @@
+common:
+  tolerations: &tolerations
+  - effect: NoSchedule
+    key: management
+    operator: Equal
+    value: "true"
+  affinity: &affinity
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: beta.kubernetes.io/arch
+            operator: In
+            values:
+            - amd64
+          - key: role
+            operator: In
+            values:
+            - management
+init:
+  image:
+    repository: registry.au-syd.bluemix.net/cloudzcp/alpine
+    tag: 3.6
+
+keycloak:
+  image:
+    repository: registry.au-syd.bluemix.net/cloudzcp/keycloak
+    tag: 3.4.3.Final
+
+  tolerations: *tolerations
+  affinity: |
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: beta.kubernetes.io/arch
+            operator: In
+            values:
+            - amd64
+          - key: role
+            operator: In
+            values:
+            - management
+  resources:
+    limits:
+      cpu: "800m"
+      memory: "1024Mi"
+    requests:
+      cpu: "200m"
+      memory: "1024Mi"
+
+  extraInitContainers: |
+    - name: theme-provider
+      image: registry.au-syd.bluemix.net/cloudzcp/zcp-keycloak-theme-provider:1.0.0
+      imagePullPolicy: Always
+      command:
+        - sh
+      args:
+        - -c
+        - |
+          echo "Copying theme..."
+          cp -R /zcp/* /theme
+      volumeMounts:
+        - name: theme
+          mountPath: /theme
+
+  extraVolumeMounts: |
+    - name: theme
+      mountPath: /opt/jboss/keycloak/themes/zcp
+    - name: realm-secret
+      mountPath: "/realm/"
+      readOnly: true
+
+  extraVolumes: |
+    - name: theme
+      emptyDir: {}
+    - name: realm-secret
+      secret:
+        secretName: realm-secret
+
+  extraArgs: -Dkeycloak.import=/realm/realm-zcp-export.json
+
+  persistence:
+    deployPostgres: true
+#    dbHost: zcp-oidc-postgresql
+
+  ingress:
+    enabled: true
+    path: /
+
+    annotations:
+      kubernetes.io/ingress.class: "nginx"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      # kubernetes.io/tls-acme: "true"
+      # ingress.kubernetes.io/affinity: cookie
+
+postgresql:
+  image: "registry.au-syd.bluemix.net/cloudzcp/postgres"
+  imageTag: "9.6.2"
+
+  tolerations: *tolerations
+  affinity: *affinity
+
+  metrics:
+    enabled: true
+    image: registry.au-syd.bluemix.net/cloudzcp/postgres_exporter
+    imageTag: v0.1.1
