@@ -33,11 +33,11 @@ helm install zcp/zcp-registry --version 1.0.0 \
 --set externalDomain=${HARBOR_INGRESS_HOSTS} \
 --set ingress.annotations."ingress\.bluemix\.net/ALB-ID"=${HARBOR_INGRESS_CONTROLLER} \
 --set adminserver.adminPassword=${HARBOR_ADMIN_PASSWORD} \
---set adminserver.volumes.config.storageClass=ibmc-file-silver \
+--set adminserver.volumes.config.storageClass=ibmc-file-retain-silver \
 --set adminserver.volumes.config.size=20Gi \
---set mysql.volumes.data.storageClass=ibmc-block-silver \
+--set mysql.volumes.data.storageClass=ibmc-block-retain-silver \
 --set mysql.volumes.data.size=20Gi \
---set postgresql.persistence.storageClass=ibmc-block-silver \
+--set postgresql.persistence.storageClass=ibmc-block-retain-silver \
 --set postgresql.persistence.size=20Gi \
 --set registry.objectStorage.s3.accesskey=${HARBOR_S3_ACCESSKEY} \
 --set registry.objectStorage.s3.secretkey=${HARBOR_S3_SECRETKEY} \
