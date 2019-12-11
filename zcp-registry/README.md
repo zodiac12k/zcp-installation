@@ -14,7 +14,7 @@ $ git clone https://github.com/cnpst/zcp-installation.git
 ### ENV 수정
 
 ```
-$ vi install_eks.sh
+$ vi install_iks.sh
 ```
 
 ```
