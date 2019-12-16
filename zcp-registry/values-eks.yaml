@@ -34,60 +34,46 @@ expose:
     hosts:
       core: eks-dev-registry.cloudzcp.io                                 # CHANGE
     annotations:
-      ingress.kubernetes.io/ssl-redirect: "true"
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
-      ingress.kubernetes.io/proxy-body-size: "0"
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
 
 externalURL: https://eks-dev-registry.cloudzcp.io                         # CHANGE
 persistence:
   enabled: true
   persistentVolumeClaim:
-    registry:
-      existingClaim: ""
-      storageClass: "zcp-efs"
-      subPath: "registry"
-      accessMode: ReadWriteOnce
-      size: 20Gi
-    chartmuseum:
-      existingClaim: ""
-      storageClass: "zcp-efs"
-      subPath: "chartmuseum"
-      accessMode: ReadWriteOnce
-      size: 5Gi
     jobservice: 
       existingClaim: ""
       storageClass: "zcp-efs"
-      subPath: "jobservice"
-      accessMode: ReadWriteOnce
+      subPath: ""
+      accessMode: ReadWriteMany
       size: 20Gi
     database:
       existingClaim: ""
-      storageClass: "zcp-efs"
-      subPath: "database"
+      storageClass: "gp2"
+      subPath: ""
       accessMode: ReadWriteOnce
       size: 20Gi
     redis:
       existingClaim: ""
-      storageClass: "zcp-efs"
-      subPath: "redis"
+      storageClass: "gp2"
+      subPath: ""
       accessMode: ReadWriteOnce
-      size: 5Gi
+      size: 20Gi
   imageChartStorage:
     type: s3
     filesystem:
       rootdirectory: /storage
     s3:
       region: ap-northeast-2
-      accesskey: AKIAW5RE27CGNQM5FVIY
-      secretkey: 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
+      accesskey:
+      secretkey:
       bucket: zcp-registry-eks-test
       
 imagePullPolicy: IfNotPresent
 
 logLevel: debug
 # The initial password of Harbor admin. Change it from portal after launching Harbor
-harborAdminPassword: "Harbor12345"
+harborAdminPassword:
 # The secret key used for encryption. Must be a string of 16 chars.
 secretKey: "not-a-secure-key"
 
@@ -95,7 +81,7 @@ secretKey: "not-a-secure-key"
 portal:
   image:
     repository: goharbor/harbor-portal
-    tag: v1.7.6
+    tag: v1.7.5
   replicas: 1
   nodeSelector: {}
   resources: *100m-256Mi
@@ -107,7 +93,7 @@ portal:
 core:
   image:
     repository: goharbor/harbor-core
-    tag: v1.7.6
+    tag: v1.7.5
   replicas: 1
   nodeSelector: {}
   resources: *100m-256Mi
@@ -119,7 +105,7 @@ core:
 adminserver:
   image:
     repository: goharbor/harbor-adminserver
-    tag: v1.7.6
+    tag: v1.7.5
   replicas: 1
   nodeSelector: {}
   resources: *100m-256Mi
@@ -129,15 +115,11 @@ adminserver:
 jobservice:
   image:
     repository: goharbor/harbor-jobservice
-    tag: v1.7.6
+    tag: v1.7.5
   replicas: 1
   maxJobWorkers: 10
   # The logger for jobs: "file", "database" or "stdout"
   jobLogger: file
-# resources:
-#   requests:
-#     memory: 256Mi
-#     cpu: 100m
   nodeSelector: {}
   resources: *100m-256Mi
   tolerations: *tolerations
@@ -149,11 +131,11 @@ registry:
   registry:
     image:
       repository: goharbor/registry-photon
-      tag: v2.6.2-v1.7.6
+      tag: v2.6.2-v1.7.5
   controller:
     image:
       repository: goharbor/harbor-registryctl
-      tag: v1.7.6
+      tag: v1.7.5
   replicas: 1 
   nodeSelector: {}
   resources: *100m-256Mi
@@ -163,10 +145,10 @@ registry:
   podAnnotations: {}
 
 chartmuseum:
-  enabled: true
+  enabled: false
   image:
     repository: goharbor/chartmuseum-photon
-    tag: v0.8.1-v1.7.6
+    tag: v0.8.1-v1.7.5
   replicas: 1 
   nodeSelector: {}
   resources: *100m-256Mi
@@ -179,7 +161,7 @@ clair:
   enabled: true
   image:
     repository: goharbor/clair-photon
-    tag: v2.0.8-v1.7.6
+    tag: v2.0.8-v1.7.5
   replicas: 1
   # The http(s) proxy used to update vulnerabilities database from internet
   httpProxy:
@@ -204,7 +186,7 @@ database:
   internal:
     image:
       repository: goharbor/harbor-db
-      tag: v1.7.6
+      tag: v1.7.5
     # The initial superuser password for internal database
     password: "changeit" 
     nodeSelector: {}
@@ -220,9 +202,8 @@ redis:
   internal:
     image:
       repository: goharbor/redis-photon
-      tag: v1.7.6 
+      tag: v1.7.5
     nodeSelector: {}
     resources: *100m-256Mi
     tolerations: *tolerations
     affinity: *affinity
- 
