@@ -12,13 +12,13 @@ helm install stable/keycloak --version 2.0.0 \
 --set keycloak.username=${KEYCLOAK_ADMIN_ID} \
 --set keycloak.password=${KEYCLOAK_ADMIN_PWD} \
 --set keycloak.ingress.hosts[0]=${KEYCLOAK_INGRESS_HOSTS} \
---set keycloak.ingress.annotations."kubernetes.io\/ingress.class"=${KEYCLOAK_INGRESS_CONTROLLER} \
+--set keycloak.ingress.annotations."kubernetes\.io/ingress\.class"=${KEYCLOAK_INGRESS_CONTROLLER} \
 --set keycloak.ingress.tls[0].hosts[0]=${KEYCLOAK_INGRESS_HOSTS} \
 --set keycloak.ingress.tls[0].secretName=${DOMAIN_SECRET_NAME} \
 --set postgresql.postgresPassword=${KEYCLOAK_DB_PWD} \
 --set postgresql.persistence.enabled=true \
 --set postgresql.persistence.storageClass=zcp-efs \
---set postgresql.persistence.size=20Gi
+--set postgresql.persistence.size=5Gi
 #--set keycloak.resources.limits.cpu=${KEYCLOAK_LIMIT_CPU} \
 #--set keycloak.resources.limits.memory=${KEYCLOAK_LIMIT_MEM} \
 #--set keycloak.resources.requests.cpu=${KEYCLOAK_REQUEST_CPU} \
