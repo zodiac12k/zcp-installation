@@ -63,7 +63,7 @@ Master:
       # ingress.bluemix.net/ALB-ID: private-xxxx-alb1  # CHANGE: Private ALB
     TLS:
     - hosts:
-      - jenkins.cloudzcp.io  # CHANGE
+      - devops.cloudzcp.io  # CHANGE
     
 ...
 
