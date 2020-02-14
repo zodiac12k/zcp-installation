@@ -44,7 +44,7 @@ gitea:
 아래의 helm install을 실행하고, 정상적으로 배포되었는지 확인한다. 
 ```
 $ helm repo add zcp https://raw.githubusercontent.com/cnpst/charts/master/docs
-$ helm install zcp/zcp-tools-backup -n zcp-tools-backup -f values-ibm.yaml
+$ helm install zcp/zcp-tools-backup -namespace zcp-system -n zcp-tools-backup -f values-ibm.yaml
 $ kubectl get pod -n zcp-system
 ```
 
