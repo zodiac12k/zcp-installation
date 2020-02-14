@@ -56,7 +56,7 @@ Master:
       ingress.bluemix.net/redirect-to-https: "True"
     TLS:
     - hosts:
-      - jenkins2.cloudzcp.io  # CHANGE
+      - {prefix}-devops.cloudzcp.io  # CHANGE
       secretName: cloudzcp-io-cert
 
 Persistence:
