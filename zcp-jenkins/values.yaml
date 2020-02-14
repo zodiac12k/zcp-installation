@@ -24,7 +24,7 @@ Master:
   Limits:
     Cpu: "1"
     Memory: "2Gi"
-  HostName: jenkins.cloudzcp.io	# CHANGE
+  HostName: {prefix}-devops.cloudzcp.io	# CHANGE
   # For minikube, set this to NodePort, elsewhere use LoadBalancer
   # Use ClusterIP if your setup includes ingress controller
   ServiceType: ClusterIP
