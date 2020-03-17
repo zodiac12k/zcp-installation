@@ -17,7 +17,7 @@ helm install stable/keycloak --version 2.0.0 \
 --set keycloak.ingress.tls[0].secretName=${DOMAIN_SECRET_NAME} \
 --set postgresql.postgresPassword=${KEYCLOAK_DB_PWD} \
 --set postgresql.persistence.enabled=true \
---set postgresql.persistence.storageClass=zcp-efs \
+--set postgresql.persistence.storageClass=efs-zcp \
 --set postgresql.persistence.size=5Gi
 #--set keycloak.resources.limits.cpu=${KEYCLOAK_LIMIT_CPU} \
 #--set keycloak.resources.limits.memory=${KEYCLOAK_LIMIT_MEM} \
