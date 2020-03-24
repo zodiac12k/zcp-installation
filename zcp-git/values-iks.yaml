@@ -18,10 +18,10 @@ service:
       ingress.bluemix.net/redirect-to-https: "True"
       ingress.bluemix.net/client-max-body-size: size=50M
     hosts:
-      host: git.cloudzcp.io  #CHANGE
+      host: iks-dev-git.cloudzcp.io  #CHANGE
     tls:
     - hosts:
-      - git.cloudzcp.io  # CHANGE
+      - iks-dev-git.cloudzcp.io  # CHANGE
       secretName: cloudzcp-io-cert
 affinity:
   nodeAffinity:
@@ -50,7 +50,9 @@ persistence:
   ##
   enabled: true
 
-  existingClaim: zcp-gitea
+#  existingClaim: zcp-gitea
+  storageClass: ibmc-block-retain-silver
+  size: 20Gi
 
 ## Configuration values for the postgresql dependency.
 ## ref: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
@@ -68,7 +70,9 @@ postgresql:
     ## Enable PostgreSQL persistence using Persistent Volume Claims.
     ##
     enabled: true
-    existingClaim: zcp-gitea-postgres 
+#    existingClaim: zcp-gitea-postgres
+    storageClass: ibmc-block-retain-silver
+    size: 20Gi
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:

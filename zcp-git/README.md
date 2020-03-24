@@ -7,67 +7,65 @@
 |Gitea| 1.4 |gitea/gitea:1.4
 |Postgres| 9.6.2 |postgres:9.6.2
 
+## Prerequisite
 
-zcp-git 는 Open Source Gitea 를 사용한다.
+1. `cloudzcp-io-cert` cloudzcp.io 인증서 secret
+2. helm client v2.9.1 이상
 
-zcp-gitea 설치 전에 필요한 것들.
+## Install with helm
 
-1. https 용 공인 인증서 secret - keycloak 설치 시 생성됨.
+### for IKS
 
-## helm client install
-zcp-git 는 helm 으로 설치하기 때문에 자신의 OS 에 맞는 helm 2.9.1 client 가 필요하다. 
-<https://github.com/helm/helm/releases/tag/v2.9.1/>
-```
-$ helm init --client-only
-``` 
-
-## Clone this project into the desktop
-```
-$ git clone https://github.com/cnpst/zcp-installation.git
-```
-
-## PVC 설치
-configuration 파일 디렉토리로 이동한다.
+#### env.properties 파일 수정
+env.properties 파일을 편집기로 열어 아래 항목을 프로젝트에 맞게 수정한다.
 
 ```
-$ cd zcp-installation/zcp-git
+$ vi env.properties 
 ```
 
-pvc를 설치한다.
 ```
-$ kubectl apply -f zcp-git-pvc.yaml
-```
+# target namespace installed
+TARGET_NAMESPACE=zcp-system
 
-## Deploy the application
-프로젝트 별로 수정해야 하는 파일은 **values** 이다.
+# gitea domain certificate secret name
+DOMAIN_SECRET_NAME=cloudzcp-io-cert
 
-
-### 1. values.yaml 정보 변경
-private 환경인 경우 values-ibm.yaml 을 수정한다.
-`# CAHNGE` 주석이 포함된 라인의 정보를 수정한다.
-```
-service:
-  ingress:
-    annotations:
-      # ingress.bluemix.net/ALB-ID: private-xxxx-alb1  # CHANGE: Private ALB
-    hosts:
-      host: git.cloudzcp.io  #CHANGE
-    tls:
-    - hosts:
-      - git.cloudzcp.io  # CHANGE
-    
-...
-
-
+# gitea domain host
+GITEA_INGRESS_HOSTS=iks-dev-git.cloudzcp.io
+GITEA_INGRESS_TLS_HOSTS=iks-dev-git.cloudzcp.io
+GITEA_INGRESS_CONTROLLER=private-cr0ce3d46f6765441ca772dcb67bbf2a40-alb1
 ```
 
-### 2. helm install로 설치한다.
-public 환경인 경우
+#### Helm install 수행
+
 ```
-$ helm install gitea-0.6.0.tgz -n zcp-git -f values.yaml --namespace=zcp-system 
+$ ./install_iks.sh
 ```
 
-private 환경인 경우
+### for EKS
+
+#### env.properties 파일 수정
+env.properties 파일을 편집기로 열어 아래 항목을 프로젝트에 맞게 수정한다.
+
 ```
-$ helm install gitea-0.6.0.tgz -n zcp-git -f values-ibm.yaml --namespace=zcp-system 
+$ vi env.properties 
+```
+
+```
+# target namespace installed
+TARGET_NAMESPACE=zcp-system
+
+# gitea domain certificate secret name
+DOMAIN_SECRET_NAME=cloudzcp-io-cert
+
+# gitea domain host
+GITEA_INGRESS_HOSTS=eks-dev-git.cloudzcp.io
+GITEA_INGRESS_TLS_HOSTS=eks-dev-git.cloudzcp.io
+GITEA_INGRESS_CONTROLLER=nginx
+```
+
+#### Helm install 수행
+
+```
+$ ./install_eks.sh
 ```
