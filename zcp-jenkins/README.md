@@ -60,20 +60,17 @@ $ vi env.properties
 # target namespace installed
 TARGET_NAMESPACE=zcp-system
 
-# keycloak domain certificate secret name
+# jenkins domain certificate secret name
 DOMAIN_SECRET_NAME=cloudzcp-io-cert
 
-# keycloak user account
-KEYCLOAK_ADMIN_ID=cloudzcp-admin
-KEYCLOAK_ADMIN_PWD=***
+# jenkins user account
+JENKINS_ADMIN_ID=admin
+JENKINS_ADMIN_PWD=***
 
-# keycloak domain host
-KEYCLOAK_INGRESS_HOSTS=eks-dev-iam.cloudzcp.io
-KEYCLOAK_INGRESS_TLS_HOSTS=eks-dev-iam.cloudzcp.io
-KEYCLOAK_INGRESS_CONTROLLER=private-nginx
-
-# keycloak db config
-KEYCLOAK_DB_PWD=***
+# jenkins domain host
+JENKINS_INGRESS_HOSTS=eks-dev-devops.cloudzcp.io
+JENKINS_INGRESS_TLS_HOSTS=eks-dev-devops.cloudzcp.io
+JENKINS_INGRESS_CONTROLLER=nginx
 ```
 
 #### Helm install 수행
