@@ -22,12 +22,12 @@ helm install harbor/harbor --version 1.0.1 \
 --set expose.ingress.annotations."kubernetes\.io/ingress\.class"=${HARBOR_INGRESS_CONTROLLER} \
 --set externalURL=${HARBOR_EXTERNAL_URL} \
 --set harborAdminPassword=${HARBOR_ADMIN_PASSWORD} \
---set persistence.persistentVolumeClaim.jobservice.storageClass=zcp-efs \
+--set persistence.persistentVolumeClaim.jobservice.storageClass=efs-zcp \
 --set persistence.persistentVolumeClaim.jobservice.size=20Gi \
---set persistence.persistentVolumeClaim.database.storageClass=gp2 \
---set persistence.persistentVolumeClaim.database.size=20Gi \
---set persistence.persistentVolumeClaim.redis.storageClass=gp2 \
---set persistence.persistentVolumeClaim.redis.size=20Gi \
+--set persistence.persistentVolumeClaim.database.storageClass=ebs-gp2 \
+--set persistence.persistentVolumeClaim.database.size=5Gi \
+--set persistence.persistentVolumeClaim.redis.storageClass=ebs-gp2 \
+--set persistence.persistentVolumeClaim.redis.size=5Gi \
 --set persistence.imageChartStorage.s3.accesskey=${HARBOR_S3_ACCESSKEY} \
 --set persistence.imageChartStorage.s3.secretkey=${HARBOR_S3_SECRETKEY} \
 --set persistence.imageChartStorage.s3.bucket=${HARBOR_S3_BUCKET} \
