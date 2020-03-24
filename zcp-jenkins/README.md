@@ -7,81 +7,82 @@
 |Jenkins| 1.121.3 |jenkins/jenkins:1.121.3
 
 
-## 개요
+## Prerequisite
 
-zcp-jenkins 설치 전에 필요한 것들.
+1. `zcp-system-admin` Service Account
+2. `cloudzcp-io-cert` cloudzcp.io 인증서 secret
+3. helm client v2.9.1 이상
 
-1. zcp-system-admin Service Account. - zcp-iam 설치 시 생성됨.
-2. https 용 공인 인증서 secret - keycloak 설치 시 생성됨.
+## Install with helm
 
-## helm client install
-zcp-jenkins 는 helm 으로 설치하기 때문에 자신의 OS 에 맞는 helm 2.9.1 client 가 필요하다. 
-<https://github.com/helm/helm/releases/tag/v2.9.1/>
-```
-$ helm init --client-only
-``` 
+### for IKS
 
-## Clone this project into the desktop
-```
-$ git clone https://github.com/cnpst/zcp-installation.git
-```
-
-## PVC 설치
-configuration 파일 디렉토리로 이동한다.
+#### env.properties 파일 수정
+env.properties 파일을 편집기로 열어 아래 항목을 프로젝트에 맞게 수정한다.
 
 ```
-$ cd zcp-installation/zcp-jenkins
+$ vi env.properties 
 ```
 
-Jenkins home pvc를 설치한다.
 ```
-$ kubectl apply -f zcp-jenkins-pvc.yaml
-```
+# target namespace installed
+TARGET_NAMESPACE=zcp-system
 
-Maven local repository pvc를 설치한다.
-```
-$ kubectl apply -f zcp-jenkins-maven-pvc.yaml
-```
+# jenkins domain certificate secret name
+DOMAIN_SECRET_NAME=cloudzcp-io-cert
 
-## Deploy the application
-프로젝트 별로 수정해야 하는 파일은 **values** 이다.
+# jenkins user account
+JENKINS_ADMIN_ID=admin
+JENKINS_ADMIN_PWD=***
 
-
-### 1. values.yaml 정보 변경
-private 환경인 경우 values-ibm.yaml 을 수정한다.
-`# CAHNGE` 주석이 포함된 라인의 정보를 수정한다.
-```
-Master:
-  HostName: jenkins.cloudzcp.io   # CHANGE
-...
-
-...
-
-Master:
-  Ingress:
-    Annotations:
-      # ingress.bluemix.net/ALB-ID: private-xxxx-alb1  # CHANGE: Private ALB
-    TLS:
-    - hosts:
-      - devops.cloudzcp.io  # CHANGE
-    
-...
-
-
+# jenkins domain host
+JENKINS_INGRESS_HOSTS=iks-dev-devops.cloudzcp.io
+JENKINS_INGRESS_TLS_HOSTS=iks-dev-devops.cloudzcp.io
+JENKINS_INGRESS_CONTROLLER=private-cr0ce3d46f6765441ca772dcb67bbf2a40-alb1
 ```
 
-### 2. helm install로 설치한다.
-public 환경인 경우
+#### Helm install 수행
+
 ```
-$ helm install jenkins-0.14.3.tgz -n zcp-jenkins -f values.yaml --namespace=zcp-system 
+$ ./install_iks.sh
 ```
 
-private 환경인 경우
+### for EKS
+
+#### env.properties 파일 수정
+env.properties 파일을 편집기로 열어 아래 항목을 프로젝트에 맞게 수정한다.
+
 ```
-$ helm install jenkins-0.14.3.tgz -n zcp-jenkins -f values-ibm.yaml --namespace=zcp-system 
+$ vi env.properties 
 ```
 
-### 3. Jenkins Plugins 복사
+```
+# target namespace installed
+TARGET_NAMESPACE=zcp-system
+
+# keycloak domain certificate secret name
+DOMAIN_SECRET_NAME=cloudzcp-io-cert
+
+# keycloak user account
+KEYCLOAK_ADMIN_ID=cloudzcp-admin
+KEYCLOAK_ADMIN_PWD=***
+
+# keycloak domain host
+KEYCLOAK_INGRESS_HOSTS=eks-dev-iam.cloudzcp.io
+KEYCLOAK_INGRESS_TLS_HOSTS=eks-dev-iam.cloudzcp.io
+KEYCLOAK_INGRESS_CONTROLLER=private-nginx
+
+# keycloak db config
+KEYCLOAK_DB_PWD=***
+```
+
+#### Helm install 수행
+
+```
+$ ./install_eks.sh
+```
+
+### Jenkins Plugins 복사
 검증이 완료 된 버전의 Jenkins plugin 을 사용하기 위해 values 파일의 InstallPlugins 를 사용하지 않고 Plugin 을 직접 Jenkins pod 에 복사한다.
 
 Jenkins pod 에 완전히 기동되었는지 확인한다. Running 상태여야 파일 복사가 가능하다.
