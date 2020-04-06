@@ -1,0 +1,57 @@
+# Default values for jenkins.
+# This is a YAML-formatted file.
+# Declare name/value pairs to be passed into your templates.
+# name: value
+
+## Overrides for generated resource names
+# See templates/_helpers.tpl
+# nameOverride:
+# fullnameOverride:
+
+Master:
+  Name: jenkins-master
+  Image: "registry.au-syd.bluemix.net/cloudzcp/jenkins"
+  ImageTag: "2.121.3"
+  ImagePullPolicy: "Always"
+# ImagePullSecret: jenkins
+  Component: "jenkins-master"
+  UseSecurity: true
+  AdminUser: admin
+  AdminPassword: jenkins
+  Requests:
+    Cpu: "200m"
+    Memory: "512m"
+  Limits:
+    Cpu: "1"
+    Memory: "2Gi"
+  HostName: eks-dev-devops.cloudzcp.io	# CHANGE
+  # For minikube, set this to NodePort, elsewhere use LoadBalancer
+  # Use ClusterIP if your setup includes ingress controller
+  ServiceType: ClusterIP
+  JavaOpts: -Duser.timezone=Asia/Seoul -Xms512m -Xmx1024m
+  InstallPlugins:
+
+  Tolerations: {}
+  Affinity: {}
+  Ingress:
+    Annotations:
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+
+    TLS:
+    - hosts:
+      - eks-dev-devops.cloudzcp.io  # CHANGE
+      secretName: cloudzcp-io-cert
+
+Persistence:
+  Enabled: true
+  ## A manually managed Persistent Volume and Claim
+  ## Requires Persistence.Enabled: true
+  ## If defined, PVC must be created manually before volume will be bound
+  # ExistingClaim: zcp-jenkins
+  StorageClass: "efs-zcp"
+  Size: 20Gi
+
+## Install Default RBAC roles and bindings
+rbac:
+  serviceAccountName: zcp-system-admin
+
